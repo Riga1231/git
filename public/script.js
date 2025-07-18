@@ -1,14 +1,18 @@
-// Fetch items from the backend API
-fetch("http://localhost:3000/api/items")
-  .then((res) => res.json())
-  .then((items) => {
-    const list = document.getElementById("itemList");
-    items.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      list.appendChild(li);
-    });
-  })
-  .catch((err) => {
-    console.error("Failed to fetch items:", err);
-  });
+const express = require("express");
+const app = express();
+const PORT = 3000;
+
+// Sample data
+const items = ["Apple", "Banana", "Orange", "Mango"];
+
+// Serve static frontend files
+app.use(express.static("public"));
+
+// API route to get items
+app.get("/api/items", (req, res) => {
+  res.json(items);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
